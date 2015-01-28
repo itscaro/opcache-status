@@ -3,9 +3,13 @@
 define('THOUSAND_SEPARATOR',true);
 
 if (!extension_loaded('Zend OPcache')) {
-    echo '<div style="background-color: #F2DEDE; color: #B94A48; padding: 1em;">You do not have the Zend OPcache extension loaded, sample data is being shown instead.</div>';
-    require 'data-sample.php';
+    echo '<div style="background-color: #F2DEDE; color: #B94A48; padding: 1em;">You do not have the Zend OPcache extension loaded.</div>';
+    exit();
 }
+
+if (isset($_GET['reset']) && $_GET['reset'] == 'opcache') {
+    opcache_reset();
+} 
 
 class OpCacheDataModel
 {
@@ -542,7 +546,7 @@ $dataModel = new OpCacheDataModel();
     <div id="partition"></div>
 
     <script>
-        var dataset = <?php echo $dataModel->getGraphDataSetJson(); ?>
+        var dataset = <?php echo $dataModel->getGraphDataSetJson(); ?>;
 
         var width = 400,
             height = 400,
